@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>God DNS - USA Reg Master</title>
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      padding: 30px;
+      overflow-x: hidden;
+    }
+
+    /* Telegram Box */
+    .telegram-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      background-color: rgba(0, 191, 255, 0.15);
+      border: 2px solid #00bfff;
+      color: #00d5ff;
+      padding: 12px 24px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      font-size: 18px;
+      font-weight: bold;
+      animation: floatBox 3s ease-in-out infinite;
+      box-shadow: 0 0 12px rgba(0, 191, 255, 0.3);
+    }
+
+    .telegram-box a {
+      color: #00e0ff;
+      text-decoration: none;
+    }
+
+    .telegram-box a:hover {
+      text-decoration: underline;
+    }
+
+    .telegram-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      object-fit: cover;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes floatBox {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.85; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+      font-size: 38px;
+      margin-bottom: 25px;
+      color: #fff;
+      text-shadow: 0 0 10px #0ff;
+    }
+
+    button {
+      background: linear-gradient(145deg, #1a1a1a, #111);
+      color: #0ff;
+      border: 2px solid #0ff;
+      padding: 14px 30px;
+      margin: 10px;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 12px #0ff60c44;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #111;
+      transform: scale(1.05);
+      box-shadow: 0 0 18px #0ff;
+    }
+
+    .dns-container {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .dns-entry {
+      background: #1b1b1b;
+      border-left: 6px solid #0ff;
+      padding: 20px;
+      width: 85%;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #0ff3;
+      font-size: 18px;
+      position: relative;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #0ff;
+      border: none;
+      color: #000;
+      padding: 6px 14px;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .copy-btn:hover {
+      background: #0cc;
+    }
+
+    .dns-details {
+      margin-top: 10px;
+      font-size: 15px;
+      color: #ccc;
+    }
+
+    @keyframes fadeInUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="telegram-box">
+    <img src="academi-vpn.jpg" alt="Academi VPN" class="telegram-img">
+    <a href="https://t.me/Academi_vpn" target="_blank">Telegram: @Academi_vpn</a>
+  </div>
+
+  <h1>God DNS - USA Reg Master</h1>
+
+  <button onclick="generateDNS()">Generate DNS</button>
+  <button onclick="generateDNS()">Regenerate DNS</button>
+
+  <div class="dns-container" id="dnsContainer"></div>
+
+  <script>
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function generateIPv4() {
+      return `23.${getRandomInt(0, 255)}.${getRandomInt(0, 255)}.${getRandomInt(1, 254)}`;
+    }
+
+    function generateIPv6() {
+      const blocks = [];
+      for (let i = 0; i < 7; i++) {
+        blocks.push(getRandomInt(0x1000, 0xffff).toString(16));
+      }
+      return `23:${blocks.join(":")}`;
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("DNS copied to clipboard!");
+      });
+    }
+
+    function generateDNS() {
+      const container = document.getElementById("dnsContainer");
+      container.innerHTML = "";
+
+      for (let i = 0; i < 10; i++) {
+        const ipv4 = generateIPv4();
+        const ipv6 = generateIPv6();
+
+        const dnsDiv = document.createElement("div");
+        dnsDiv.className = "dns-entry";
+
+        dnsDiv.innerHTML = `
+          <strong>IPv4:</strong> ${ipv4}<br>
+          <strong>IPv6:</strong> ${ipv6}
+          <button class="copy-btn" onclick="copyToClipboard('${ipv4} / ${ipv6}')">Copy</button>
+          <div class="dns-details">
+            Ping: <strong>< 80ms</strong> | Registry: <strong>High</strong> | Lag: <strong>Zero</strong><br>
+            PUBG / CoD: <strong>2-Shot Kill</strong> | Accuracy: <strong>Max Headshot Impact</strong>
+          </div>
+        `;
+
+        container.appendChild(dnsDiv);
+      }
+    }
+  </script>
+</body>
+</html>
